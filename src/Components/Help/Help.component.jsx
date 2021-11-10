@@ -24,7 +24,7 @@ const Help = () => {
         `} />
         <Divider />
         <Fonts.Bio bio="Important info for mobile users." />
-        <Fonts.Answer answer="Since mobile chrome doesn't allow addons, we have to use this in Metamask in-app browser. It's a beautiful app btw." />
+        <Fonts.Answer answer="Since mobile chrome doesn't allow addons, we have to use this in Metamask in-app browser. Even getting ethers from the above mentioned site are possible in meta-mask and not in chrome. It's a beautiful app btw." />
         <Fonts.Bio bio="I'll catch your wave :)" />
     </> 
     )

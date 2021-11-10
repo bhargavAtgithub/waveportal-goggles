@@ -7,7 +7,7 @@ export default function App() {
 
   const [currentAccount, setCurrentAccount] = useState("");
   const [allWaves, setAllWaves] = useState([])
-  const [waveMsg, setWaveMsg] = useState("");
+  const [waveMsg, setWaveMsg] = useState("👋");
   const [buttonTitle, setButtonTitle] = useState("Send Wave");
 
   const contractAddress = "0xCB5604Dd43b1896961CE0f47c136D5981c56F960";
@@ -116,7 +116,7 @@ export default function App() {
 
         getAllWaves();
         setButtonTitle("Send Wave")
-        setWaveMsg("")
+        setWaveMsg("👋")
       } else {
         console.log("Ethereum object doesn't exist!");
       }
