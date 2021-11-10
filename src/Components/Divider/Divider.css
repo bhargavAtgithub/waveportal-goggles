@@ -1,0 +1,6 @@
+.divider {
+    margin: 15px 5px;
+    height: 0;
+    width: min(90%,400px);
+    border-bottom: 1px solid #C7C7CC;
+}

@@ -1,0 +1,20 @@
+.waveButtonWrapper {
+    background: linear-gradient(to right, #91aad1, #ffb1b1);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 2px;
+}
+  
+.waveButton {
+    cursor: pointer;
+    padding: 8px;
+    border: 0;
+    width: 100%;
+    border-radius: 3px;
+    background-color: #FFF;
+}

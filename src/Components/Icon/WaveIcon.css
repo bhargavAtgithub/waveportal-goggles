@@ -1,0 +1,11 @@
+.waveIconContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.waveIcon {
+    font-size: 40px;
+    margin: 0 5px 0 0;
+}
