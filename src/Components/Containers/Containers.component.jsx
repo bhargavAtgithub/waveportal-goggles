@@ -20,4 +20,6 @@ const Container = ({children, containerPosition}) => {
 
 const TextContainer = ({children}) => <div className="textContainer">{children}</div>
 
-export {MainContainer, Container, TextContainer};
+const ToastContainer = ({children}) => <div className="toastContainer">{children}</div>
+
+export {MainContainer, Container, TextContainer, ToastContainer};

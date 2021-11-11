@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { ethers } from "ethers";
 import './App.css';
 import ABI from "./utils/wavePortal.json";
 import  * as Components from "./Components";
+
 export default function App() {
 
   const [currentAccount, setCurrentAccount] = useState("");
   const [allWaves, setAllWaves] = useState([])
   const [waveMsg, setWaveMsg] = useState("👋");
   const [buttonTitle, setButtonTitle] = useState("Send Wave");
+  const [toastQueue, setToastQueue] = useState([]);
 
-  const contractAddress = "0xCB5604Dd43b1896961CE0f47c136D5981c56F960";
+  const contractAddress = "0xc58EB54449e11609022707877fB240F3be649D73";
 
   const contractABI = ABI.abi;
 
@@ -93,7 +95,9 @@ export default function App() {
   }, [])
 
   const wave = async () => {
-    setButtonTitle("Opening Metamask...")
+    let temp = [...toastQueue, 'Opening Metamask...'];
+    setToastQueue([...temp])
+    setButtonTitle("...")
     try {
       const {ethereum} = window;
 
@@ -105,14 +109,22 @@ export default function App() {
         
         const waveTxn = await wavePortalContract.wave(waveMsg);
         console.log("mining...", waveTxn.hash);
-        setButtonTitle("Mining...");
+        temp.push("Mining started")
+        setToastQueue([...temp])
+
         
         await waveTxn.wait();
         console.log("mined--", waveTxn.hash);
-        setButtonTitle("Woohoo! Mined");
+        temp.push("Woohoo! Mined")
+        setToastQueue([...temp])
         
         let count = await wavePortalContract.getTotalWaves();
         console.log("Retrieved total wave count...", count.toNumber());
+
+        temp.push("Waving back 👋")
+        setToastQueue([...temp])
+        temp.push("Your wave deserves some eth. Sending back some eth.")
+        setToastQueue([...temp])
 
         getAllWaves();
         setButtonTitle("Send Wave")
@@ -122,11 +134,18 @@ export default function App() {
       }
     } catch (error) {
       console.error(error);
+      setButtonTitle("Send Wave")
     }
   }
 
+
   return (
     <Components.MainContainer>
+      <Components.ToastContainer>
+        {
+          toastQueue.map((toastMsg, index) => <Components.Toast toast={toastMsg} key={`toast_${index}`} /> )
+        }
+      </Components.ToastContainer>
       <Components.Container containerPosition={1}>
         <Components.WaveIcon />
         <Components.TextContainer>
@@ -147,9 +166,8 @@ export default function App() {
               placeholder={"Stary typing..."} 
               onChange={(e) => setWaveMsg(e.target.value)} 
             />
-            <Components.Button title={buttonTitle} onClick={buttonTitle === "Send Wave" ? wave : () => {}} /> 
+            <Components.Button title={buttonTitle} onClick={buttonTitle === "Send Wave" ? wave : () => {}} />             
           </>
-
         }
       </Components.Container>
       <Components.Container containerPosition={2}>

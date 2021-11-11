@@ -18,10 +18,17 @@
 .bio {
     text-align: center;
     color: gray;
-    margin-top: 16px;
+    font-size: 16px;
     line-height: 24px;
     font-family: 'Montserrat', sans-serif;
+}
 
+.toastText {
+    color: #000;
+    text-align: center;
+    line-height: 16px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .message {

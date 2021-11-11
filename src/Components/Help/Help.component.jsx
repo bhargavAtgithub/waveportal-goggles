@@ -15,12 +15,12 @@ const Help = () => {
         But you still need to have ethereum on your metamask to wave ( I mean fake eths XD  ).  
         `} />
         <Divider />
-        <Fonts.Bio bio="So how do get some ethereum to wave?" />
+        <Fonts.Bio bio="So how to get some ethereum to wave?" />
         <Fonts.Answer answer={`
 1. Create a metamask account. ( FYI : You have to install Metamask browser extension or install app on your mobile to sign the transactions.) Yes! It's a lengthy process. But some day, you will need a crypto wallet for your NFTs.
 2. Then go to https://faucet.rinkeby.io/ or https://buildspace-faucet.vercel.app/ And get some Fake Eths to your address. (Becareful with your private keys.)
 3. In your metamask (chrome extension or app), change your network to Rinkeby Test Network.
-3. Come back to Wave Portal. Connect your meta mask. And send me wave. You can also write a note.
+3. Come back to Wave Portal. Connect your meta mask. And send me a wave. You can also write a note.
         `} />
         <Divider />
         <Fonts.Bio bio="Important info for mobile users." />

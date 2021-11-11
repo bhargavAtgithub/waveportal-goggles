@@ -8,6 +8,8 @@ const Bio = ({bio}) => <span className="bio">{bio}</span>
 
 const Info = ({info, extraClass}) => <span className={`info ${extraClass}`}>{info}</span>
 
+const ToastText = ({toast}) => <span className="toastText">{toast}</span>
+
 const Answer = ({answer}) => <span className="answer">{answer}</span>
 
 const Message = ({message}) => {
@@ -39,4 +41,4 @@ const Message = ({message}) => {
     return <span className={`message ${fontSize}`}>{message}</span>
 }
 
-export {Title, Bio, Message, Info, Answer}
+export {Title, Bio, Message, Info, ToastText, Answer}
