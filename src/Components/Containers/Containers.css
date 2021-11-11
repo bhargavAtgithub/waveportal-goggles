@@ -104,3 +104,11 @@
     justify-content: flex-start;
     height: auto;
 }
+
+.left {
+    text-align: left;
+}
+
+.m{
+    margin: 10px 0;
+}

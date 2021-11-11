@@ -94,3 +94,14 @@
     color: gray;
     font-family: 'Montserrat', sans-serif;
 }
+
+.how {
+    font-size: 14px;
+    max-width: 300px;
+    white-space: pre-wrap;
+    margin: 5px;
+    color: gray;
+    font-family: 'Montserrat', sans-serif;
+    text-align: left;
+    line-height: 25px;
+}

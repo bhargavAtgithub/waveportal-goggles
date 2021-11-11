@@ -18,7 +18,7 @@ const Container = ({children, containerPosition}) => {
     )
 }
 
-const TextContainer = ({children}) => <div className="textContainer">{children}</div>
+const TextContainer = ({children, left, m}) => <div className={`textContainer ${!!left ? "left" : ''} ${!!m ? "m" : ""}`}>{children}</div>
 
 const ToastContainer = ({children}) => <div className="toastContainer">{children}</div>
 

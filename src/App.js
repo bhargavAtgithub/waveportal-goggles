@@ -3,6 +3,7 @@ import { ethers } from "ethers";
 import './App.css';
 import ABI from "./utils/wavePortal.json";
 import  * as Components from "./Components";
+import I from './assets/i.svg';
 
 export default function App() {
 
@@ -11,8 +12,9 @@ export default function App() {
   const [waveMsg, setWaveMsg] = useState("👋");
   const [buttonTitle, setButtonTitle] = useState("Send Wave");
   const [toastQueue, setToastQueue] = useState([]);
+  const [displayCard,setDisplayCard] = useState(false);
 
-  const contractAddress = "0xc58EB54449e11609022707877fB240F3be649D73";
+  const contractAddress = "0xb120930E6A283daEe264Be0D2c38F3fB33cB6A25";
 
   const contractABI = ABI.abi;
 
@@ -27,6 +29,7 @@ export default function App() {
         
         let wavesCleaned = [];
         waves.forEach(wave => {
+          console.log(wave)
           wavesCleaned.push({
             address: wave.waver,
             timestamp: new Date(wave.timestamp * 1000),
@@ -69,9 +72,6 @@ export default function App() {
     }
   }
 
-  /**
-   * Allow user to connect wallet
-   */
   const connectWallet = async () => {
     try {
       const { ethereum } = window;
@@ -91,6 +91,39 @@ export default function App() {
   }
 
   useEffect(() => {
+    let wavePortalContract;
+
+    const onNewWave = (from, message, timestamp) => {
+      console.log('NewWave', from, timestamp, message);
+      setAllWaves(prevState => {
+        console.log(from, timestamp, message)
+        return[        
+        {
+          address: from,
+          timestamp: new Date(timestamp * 1000),
+          message: message,
+        },
+        ...prevState
+      ]}
+      );
+    };
+
+    if (window.ethereum) {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+  
+      wavePortalContract = new ethers.Contract(contractAddress, contractABI, signer);
+      wavePortalContract.on('NewWave', onNewWave);
+    }
+  
+    return () => {
+      if (wavePortalContract) {
+        wavePortalContract.off('NewWave', onNewWave);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     checkIfWalletIsConnected();
   }, [])
 
@@ -107,7 +140,7 @@ export default function App() {
         const signer = provider.getSigner();
         const wavePortalContract = new ethers.Contract(contractAddress, contractABI, signer);
         
-        const waveTxn = await wavePortalContract.wave(waveMsg);
+        const waveTxn = await wavePortalContract.wave(waveMsg, {gasLimit: 300000});
         console.log("mining...", waveTxn.hash);
         temp.push("Mining started")
         setToastQueue([...temp])
@@ -123,10 +156,7 @@ export default function App() {
 
         temp.push("Waving back 👋")
         setToastQueue([...temp])
-        temp.push("Your wave deserves some eth. Sending back some eth.")
-        setToastQueue([...temp])
 
-        getAllWaves();
         setButtonTitle("Send Wave")
         setWaveMsg("👋")
       } else {
@@ -134,6 +164,8 @@ export default function App() {
       }
     } catch (error) {
       console.error(error);
+      temp.push("Couldn't mine. We have to wait for 15 min for a new wave.")
+      setToastQueue(temp)
       setButtonTitle("Send Wave")
     }
   }
@@ -141,6 +173,10 @@ export default function App() {
 
   return (
     <Components.MainContainer>
+      {
+        displayCard ?
+          <Components.HowCard onClose={() => setDisplayCard(false)} /> : null
+      }
       <Components.ToastContainer>
         {
           toastQueue.map((toastMsg, index) => <Components.Toast toast={toastMsg} key={`toast_${index}`} /> )
@@ -169,6 +205,11 @@ export default function App() {
             <Components.Button title={buttonTitle} onClick={buttonTitle === "Send Wave" ? wave : () => {}} />             
           </>
         }
+        
+          <Components.TextContainer>
+            <Components.Icon src={I} alt="info"  onClick={() => setDisplayCard(true)}/>
+          </Components.TextContainer>
+          
       </Components.Container>
       <Components.Container containerPosition={2}>
         <Components.TextContainer>

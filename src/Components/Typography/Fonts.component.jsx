@@ -12,6 +12,8 @@ const ToastText = ({toast}) => <span className="toastText">{toast}</span>
 
 const Answer = ({answer}) => <span className="answer">{answer}</span>
 
+const How = ({text}) => <span className="how">{text}</span>
+
 const Message = ({message}) => {
     const [fontSize, setFontSize] = useState("xxl")
 
@@ -41,4 +43,4 @@ const Message = ({message}) => {
     return <span className={`message ${fontSize}`}>{message}</span>
 }
 
-export {Title, Bio, Message, Info, ToastText, Answer}
+export {Title, Bio, Message, Info, ToastText, Answer, How}
